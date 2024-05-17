@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/common/widgets/frostedglass.dart';
 import 'package:weather/utils/constants/constants.dart';
 import 'package:weather/utils/styles/textstyle.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  bool _clicked=false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,24 @@ class HomePage extends StatelessWidget {
         ),
         child: Stack(
           children: [
+          _clicked==true?  Positioned(
+              top: 50,
+              right: 20,
+              left: 20,
+              child: Container(
+                height: 40,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide:BorderSide(color: white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: white),
+                    ),
+                  ),
+                ),
+              ),
+            ):SizedBox(),
             Container(
               height: 50,
               child: Row(
@@ -56,20 +80,25 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _clicked=!_clicked;
+                      });
+                    },
                     icon: Icon(search),
                   ),
                 ],
               ),
             ),
             Align(
-              alignment: const Alignment(0, -0.5),
+              alignment: const Alignment(0, 0),
               child: FittedBox(
-                fit: BoxFit.contain ,
+                fit: BoxFit.contain,
                 child: FrostedGlassBox(
                   width: size.width * 0.7,
-                  height: size.height * 0.5,
+                  height: size.height * 0.65,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Image(
                         width: 150,
@@ -82,18 +111,73 @@ class HomePage extends StatelessWidget {
                             '17 °C',
                             style: tempStyle,
                           ),
-                          Text(
-                            'Thunderstorm',
-                            style: typeStyle
-                          ),
+                          Text('Thunderstorm', style: typeStyle),
                           Text(DateTime.now().toString())
                         ],
                       ),
+                      height20,
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          
+                          Row(
+                            children: [
+                              Image(
+                                image: AssetImage(hightemp),
+                                width: 50,
+                                height: 50,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [Text('Low Temp'), Text('21 °C')],
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image(
+                                image: AssetImage(lowtemp),
+                                width: 50,
+                                height: 50,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [Text('Low Temp'), Text('21 °C')],
+                              )
+                            ],
+                          )
                         ],
-                      )
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              Image(
+                                image: AssetImage(sunrise),
+                                width: 50,
+                                height: 50,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [Text('Sunrise'), Text('21 °C')],
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image(
+                                image: AssetImage(sunset),
+                                width: 50,
+                                height: 50,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [Text('Sunset'), Text('21 °C')],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
