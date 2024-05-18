@@ -37,10 +37,11 @@ class FrostedGlassBox extends StatelessWidget {
                 border: Border.all(
                   color: white.withOpacity(0.13),
                 ),
+                
                 gradient: LinearGradient(
                   colors: [
-                    Colors.grey.withOpacity(0.15),
-                    Colors.grey.withOpacity(0.05),
+                    black.withOpacity(0.15),
+                    black.withOpacity(0.05),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,

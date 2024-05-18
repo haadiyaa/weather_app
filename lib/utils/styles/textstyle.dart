@@ -8,5 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
  TextStyle tempStyle= TextStyle(fontSize: 50.sp,fontWeight: FontWeight.bold);
 
 
- TextStyle typeStyle=  TextStyle(fontWeight: FontWeight.w300,fontSize: 18.sp);
+ TextStyle typeStyle=  TextStyle(fontWeight: FontWeight.w400,fontSize: 20.sp);
+ TextStyle datetimeStyle=  TextStyle(fontWeight: FontWeight.w300,fontSize: 12.sp);
 

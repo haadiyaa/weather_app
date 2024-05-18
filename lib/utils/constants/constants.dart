@@ -21,7 +21,7 @@ String hightemp='assets/smallicon/high-temp-removebg-preview.png';
 
 String lowtemp='assets/smallicon/low-temp-removebg-preview.png';
 
-String sunrise="assets/weathericon/sun.png";
+String sunrise=icons[0];
 String sunset="assets/smallicon/moon.png";
  
 //=========================COLORS===========================
