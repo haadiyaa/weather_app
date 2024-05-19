@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/common/widgets/detailstile.dart';
 import 'package:weather/services/location_provider.dart';
+import 'package:weather/services/weather_service_provider.dart';
 import 'package:weather/utils/constants/constants.dart';
 import 'package:weather/utils/styles/textstyle.dart';
 
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Provider.of<LocationProvider>(context, listen: false).determinePosition();
+    Provider.of<WeatherServiceProvider>(context,listen: false).fetchWeatherDataByCity("calicut");
   }
 
   bool _clicked = false;
