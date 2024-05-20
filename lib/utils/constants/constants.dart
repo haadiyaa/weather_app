@@ -35,6 +35,7 @@ List<String> icons=[
   "assets/weathericon/wind.png",
   "assets/weathericon/snow.png",
 ];
+String loading="assets/lottie/Animation - 1716222921776.json";
 
 String hightemp='assets/smallicon/high-temp-removebg-preview.png';
 

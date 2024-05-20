@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/common/widgets/detailstile.dart';
 import 'package:weather/common/widgets/frostedglass.dart';
@@ -63,7 +64,14 @@ class _HomePageState extends State<HomePage> {
     //format as string
     String formattedSunrise = DateFormat('hh:mm a').format(sunriseDateTime);
     String formattedSunset = DateFormat('hh:mm a').format(sunsetDateTime);
-
+    if (weatherProvider.isLoading==true||locationProvider.isLoading==true) {
+      return Scaffold(
+        extendBodyBehindAppBar: true,
+        body: Center(
+          child: LottieBuilder.asset(loading),
+        ),
+      );
+    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: black,

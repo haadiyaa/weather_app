@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Poppins',
               appBarTheme:
                   const AppBarTheme(backgroundColor: Colors.transparent),
-              // textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+              
             ),
             debugShowCheckedModeBanner: false,
             home: child,
