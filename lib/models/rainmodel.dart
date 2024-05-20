@@ -9,8 +9,8 @@ class Rain {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['1h'] = this.d1h;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['1h'] = d1h;
     return data;
   }
 }

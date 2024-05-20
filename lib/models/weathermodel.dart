@@ -51,8 +51,7 @@ class WeatherModel {
     visibility = json['visibility'];
     wind = json['wind'] != null ? Wind.fromJson(json['wind']) : null;
     rain = json['rain'] != null ? Rain.fromJson(json['rain']) : null;
-    clouds =
-        json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null;
+    clouds = json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null;
     dt = json['dt'];
     sys = json['sys'] != null ? Sys.fromJson(json['sys']) : null;
     timezone = json['timezone'];
@@ -62,35 +61,35 @@ class WeatherModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.coord != null) {
-      data['coord'] = this.coord!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (coord != null) {
+      data['coord'] = coord!.toJson();
     }
-    if (this.weather != null) {
-      data['weather'] = this.weather!.map((v) => v.toJson()).toList();
+    if (weather != null) {
+      data['weather'] = weather!.map((v) => v.toJson()).toList();
     }
-    data['base'] = this.base;
-    if (this.main != null) {
-      data['main'] = this.main!.toJson();
+    data['base'] = base;
+    if (main != null) {
+      data['main'] = main!.toJson();
     }
-    data['visibility'] = this.visibility;
-    if (this.wind != null) {
-      data['wind'] = this.wind!.toJson();
+    data['visibility'] = visibility;
+    if (wind != null) {
+      data['wind'] = wind!.toJson();
     }
-    if (this.rain != null) {
-      data['rain'] = this.rain!.toJson();
+    if (rain != null) {
+      data['rain'] = rain!.toJson();
     }
-    if (this.clouds != null) {
-      data['clouds'] = this.clouds!.toJson();
+    if (clouds != null) {
+      data['clouds'] = clouds!.toJson();
     }
-    data['dt'] = this.dt;
-    if (this.sys != null) {
-      data['sys'] = this.sys!.toJson();
+    data['dt'] = dt;
+    if (sys != null) {
+      data['sys'] = sys!.toJson();
     }
-    data['timezone'] = this.timezone;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['cod'] = this.cod;
+    data['timezone'] = timezone;
+    data['id'] = id;
+    data['name'] = name;
+    data['cod'] = cod;
     return data;
   }
 }

@@ -68,212 +68,214 @@ class _HomePageState extends State<HomePage> {
       extendBodyBehindAppBar: true,
       backgroundColor: black,
       appBar: AppBar(),
-      body: Container(
-        padding: homePadding,
-        height: size.height,
-        width: size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(backgrounds[
-                    weatherProvider.weather?.weather![0].main ?? "N/A"] ??
-                "assets/bg/sunny.jpg"),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: homePadding,
+          height: size.height,
+          width: size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(backgrounds[
+                      weatherProvider.weather?.weather![0].main ?? "N/A"] ??
+                  "assets/bg/sunny.jpg"),
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: const Alignment(0, 0.5),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: FrostedGlassBox(
-                  width: size.width * 0.7,
-                  height: size.height * 0.65,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Stack(
+            children: [
+              Align(
+                alignment: const Alignment(0, 0.5),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: FrostedGlassBox(
+                    width: size.width * 0.7,
+                    height: size.height * 0.65,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image(
+                          width: 150,
+                          height: 150,
+                          image: AssetImage(weatherConditions[
+                                  weatherProvider.weather?.weather![0].main ??
+                                      "N/A"] ??
+                              "assets/weathericon/sun.png"),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              '${weatherProvider.weather?.main?.temp?.toStringAsFixed(0) ?? "N/A"}\u00B0 C',
+                              style: tempStyle,
+                            ),
+                            Text(
+                                weatherProvider.weather?.weather?[0].main
+                                        .toString() ??
+                                    "N/A",
+                                style: typeStyle),
+                            Text(
+                              DateFormat('dd MMM yy  |  HH:mm a')
+                                  .format(DateTime.now()),
+                              style: datetimeStyle,
+                            ),
+                            Text(
+                                weatherProvider.weather?.name
+                                        .toString() ??
+                                    "N/A",
+                                style: typeStyle),
+                          ],
+                        ),
+                        height20,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(hightemp),
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('High Temp'),
+                                    Text(
+                                        "${weatherProvider.weather?.main?.tempMax?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(lowtemp),
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Low Temp'),
+                                    Text(
+                                        "${weatherProvider.weather?.main?.tempMin?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(sunrise),
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Sunrise'),
+                                    Text(formattedSunrise ?? "N/A")
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(sunset),
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Sunset'),
+                                    Text(formattedSunset ?? "N/A")
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 45,
+                right: 20,
+                left: 20,
+                child: SizedBox(
+                  height: 40,
+                  child: Row(
                     children: [
-                      Image(
-                        width: 150,
-                        height: 150,
-                        image: AssetImage(weatherConditions[
-                                weatherProvider.weather?.weather![0].main ??
-                                    "N/A"] ??
-                            "assets/weathericon/sun.png"),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            '${weatherProvider.weather?.main?.temp?.toStringAsFixed(0) ?? "N/A"}\u00B0 C',
-                            style: tempStyle,
+                      Expanded(
+                        child: TextFormField(
+                          controller: _cityController,
+                          decoration: InputDecoration(
+                            hintText: 'Search by city',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: white),
+                            ),
                           ),
-                          Text(
-                              weatherProvider.weather?.weather?[0].main
-                                      .toString() ??
-                                  "N/A",
-                              style: typeStyle),
-                          Text(
-                            DateFormat('dd MMM yy  |  HH:mm a')
-                                .format(DateTime.now()),
-                            style: datetimeStyle,
-                          ),
-                          Text(
-                              weatherProvider.weather?.name
-                                      .toString() ??
-                                  "N/A",
-                              style: typeStyle),
-                        ],
+                        ),
                       ),
-                      height20,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(hightemp),
-                                width: 50,
-                                height: 50,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('High Temp'),
-                                  Text(
-                                      "${weatherProvider.weather?.main?.tempMax?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
-                                ],
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(lowtemp),
-                                width: 50,
-                                height: 50,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Low Temp'),
-                                  Text(
-                                      "${weatherProvider.weather?.main?.tempMin?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(sunrise),
-                                width: 50,
-                                height: 50,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Sunrise'),
-                                  Text(formattedSunrise ?? "N/A")
-                                ],
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(sunset),
-                                width: 50,
-                                height: 50,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Sunset'),
-                                  Text(formattedSunset ?? "N/A")
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                      IconButton(onPressed: (){
+                        print(_cityController.text);
+                        weatherProvider.fetchWeatherDataByCity(_cityController.text);
+                      }, icon: Icon(search))
                     ],
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 45,
-              right: 20,
-              left: 20,
-              child: SizedBox(
-                height: 40,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _cityController,
-                        decoration: InputDecoration(
-                          hintText: 'Search by city',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: white),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: white),
-                          ),
+              SizedBox(
+                height: 50,
+                child: Consumer<LocationProvider>(
+                  builder: (context, locationProvider, child) {
+                    var locationCity;
+                    if (locationProvider.currentLocationName != null) {
+                      locationCity =
+                          locationProvider.currentLocationName!.locality;
+                    } else {
+                      locationCity = "Unknown Location";
+                    }
+        
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(location, color: red),
+                            width10,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  locationCity.isEmpty
+                                      ? "Unknown Location"
+                                      : locationCity,
+                                  style: titleStyle,
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                      ),
-                    ),
-                    IconButton(onPressed: (){
-                      print(_cityController.text);
-                      weatherProvider.fetchWeatherDataByCity(_cityController.text);
-                    }, icon: Icon(search))
-                  ],
+                      ],
+                    );
+                  },
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-              child: Consumer<LocationProvider>(
-                builder: (context, locationProvider, child) {
-                  var locationCity;
-                  if (locationProvider.currentLocationName != null) {
-                    locationCity =
-                        locationProvider.currentLocationName!.locality;
-                  } else {
-                    locationCity = "Unknown Location";
-                  }
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(location, color: red),
-                          width10,
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                locationCity.isEmpty
-                                    ? "Unknown Location"
-                                    : locationCity,
-                                style: titleStyle,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
