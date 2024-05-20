@@ -22,23 +22,28 @@ class WeatherServiceProvider extends ChangeNotifier {
     //https://api.openweathermap.org/data/2.5/weather?q=calicut&appid=6e85118d0f380c857ca86591512dcdde&units=metric
 
     try {
-      final apiUrl="${APIEndPoints().cityUrl}${city}&appid=${APIEndPoints().apiKey}${APIEndPoints().units}";
-      final response=await http.get(Uri.parse(apiUrl));
+      final apiUrl =
+          "${APIEndPoints().cityUrl}${city}&appid=${APIEndPoints().apiKey}${APIEndPoints().units}";
+      final response = await http.get(Uri.parse(apiUrl));
 
-      if (response.statusCode==200) {
-        final data=jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
         print('DATA : $data');
+        print('data fetched');
 
-        _weather=WeatherModel.fromJson(data);
-        print('WEATHER : ${_weather!.name}'); 
+        _weather = WeatherModel.fromJson(data);
+        print('WEATHER : ${_weather!.name}');
+        print('jhgggggggggggggggggg');
         notifyListeners();
-      }else{
-        _error="Failed to load data";
+      } else {
+        _error = "Failed to load data";
+        print(_error);
       }
     } catch (e) {
-      _error="Failed to load data! $e"; 
-    }finally{
-      _isLoading=false;
+      _error = "Failed to load data! $e";
+      print(_error);
+    } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
