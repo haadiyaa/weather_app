@@ -12,7 +12,7 @@ List<String> background=[
   "Rain":"assets/bg/rainy.jpg",
   "Drizzle":"assets/bg/rainy.jpg",
   "Clear":"assets/bg/sunny.jpg",
-  "Thunder":"assets/bg/thunder.jpg",
+  "Thunderstorm":"assets/bg/thunder.jpg",
 };
 
 Map<String,dynamic> weatherConditions={
@@ -21,7 +21,7 @@ Map<String,dynamic> weatherConditions={
   'Few Clouds':"assets/weathericon/cloud.png",
   'Drizzle':"assets/weathericon/sun-rain.png",
   'Rain':"assets/weathericon/heavyrain.png",
-  'Cloud-lightening':"assets/weathericon/thunder-rain.png",
+  'Thunderstorm':"assets/weathericon/thunder-rain.png",
   'Snow':"assets/weathericon/snow.png",
   'Mist':"assets/weathericon/wind.png",
 };

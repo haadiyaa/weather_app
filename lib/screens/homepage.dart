@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/common/widgets/detailstile.dart';
@@ -31,8 +32,14 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
-
+  final TextEditingController _cityController=TextEditingController();
   bool _clicked = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cityController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +47,22 @@ class _HomePageState extends State<HomePage> {
     final locationProvider = Provider.of<LocationProvider>(context);
     final weatherProvider = Provider.of<WeatherServiceProvider>(context);
 
-    int sunriseTimestamp=weatherProvider.weather?.sys?.sunrise??0;
-    int sunsetTimestamp=weatherProvider.weather?.sys?.sunset??0;
+    int sunriseTimestamp = weatherProvider.weather?.sys?.sunrise ?? 0;
+    int sunsetTimestamp = weatherProvider.weather?.sys?.sunset ?? 0;
 
-    int timezoneOffest=weatherProvider.weather?.timezone??0;
+    int timezoneOffest = weatherProvider.weather?.timezone ?? 0;
     //convert to datetime
-    DateTime sunriseDateTime=DateTime.fromMillisecondsSinceEpoch(sunriseTimestamp*1000,isUtc: true).add(Duration(seconds: timezoneOffest));
-    DateTime sunsetDateTime=DateTime.fromMillisecondsSinceEpoch(sunsetTimestamp*1000,isUtc: true).add(Duration(seconds: timezoneOffest));
+    DateTime sunriseDateTime = DateTime.fromMillisecondsSinceEpoch(
+            sunriseTimestamp * 1000,
+            isUtc: true)
+        .add(Duration(seconds: timezoneOffest));
+    DateTime sunsetDateTime =
+        DateTime.fromMillisecondsSinceEpoch(sunsetTimestamp * 1000, isUtc: true)
+            .add(Duration(seconds: timezoneOffest));
 
     //format as string
-    String formattedSunrise=DateFormat('hh:mm a').format(sunriseDateTime);
-    String formattedSunset=DateFormat('hh:mm a').format(sunsetDateTime);
+    String formattedSunrise = DateFormat('hh:mm a').format(sunriseDateTime);
+    String formattedSunset = DateFormat('hh:mm a').format(sunsetDateTime);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -70,80 +82,8 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Stack(
           children: [
-            _clicked == true
-                ? Positioned(
-                    top: 50,
-                    right: 20,
-                    left: 20,
-                    child: Container(
-                      height: 40,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: white),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                : const SizedBox(),
-            Container(
-              height: 50,
-              child: Consumer<LocationProvider>(
-                builder: (context, locationProvider, child) {
-                  var locationCity;
-                  if (locationProvider.currentLocationName != null) {
-                    locationCity =
-                        locationProvider.currentLocationName!.locality;
-                  } else {
-                    locationCity = "Unknown Location";
-                  }
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Icon(location, color: red),
-                            width10,
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  locationCity.isEmpty
-                                      ? "Unknown Location"
-                                      : locationCity,
-                                  style: titleStyle,
-                                ),
-                                Text(
-                                  'Good Morning',
-                                  style: subtitleStyle,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _clicked = !_clicked;
-                          });
-                        },
-                        icon: Icon(search),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
             Align(
-              alignment: const Alignment(0, 0),
+              alignment: const Alignment(0, 0.5),
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: FrostedGlassBox(
@@ -163,19 +103,24 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Text(
-                            '${weatherProvider.weather?.main?.temp?.toStringAsFixed(0) ??
-                                "N/A"}\u00B0 C',
+                            '${weatherProvider.weather?.main?.temp?.toStringAsFixed(0) ?? "N/A"}\u00B0 C',
                             style: tempStyle,
                           ),
                           Text(
                               weatherProvider.weather?.weather?[0].main
-                                  .toString()??"N/A",
+                                      .toString() ??
+                                  "N/A",
                               style: typeStyle),
                           Text(
                             DateFormat('dd MMM yy  |  HH:mm a')
                                 .format(DateTime.now()),
                             style: datetimeStyle,
-                          )
+                          ),
+                          Text(
+                              weatherProvider.weather?.name
+                                      .toString() ??
+                                  "N/A",
+                              style: typeStyle),
                         ],
                       ),
                       height20,
@@ -189,11 +134,12 @@ class _HomePageState extends State<HomePage> {
                                 width: 50,
                                 height: 50,
                               ),
-                               Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text('High Temp'),
-                                  Text("${weatherProvider.weather?.main?.tempMax?.toStringAsFixed(0)??"N/A"}\u00B0 C"),
+                                  Text(
+                                      "${weatherProvider.weather?.main?.tempMax?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
                                 ],
                               )
                             ],
@@ -205,9 +151,13 @@ class _HomePageState extends State<HomePage> {
                                 width: 50,
                                 height: 50,
                               ),
-                               Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [const Text('Low Temp'), Text("${weatherProvider.weather?.main?.tempMin?.toStringAsFixed(0)??"N/A"}\u00B0 C"),],
+                                children: [
+                                  const Text('Low Temp'),
+                                  Text(
+                                      "${weatherProvider.weather?.main?.tempMin?.toStringAsFixed(0) ?? "N/A"}\u00B0 C"),
+                                ],
                               )
                             ],
                           )
@@ -225,7 +175,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [const Text('Sunrise'), Text(formattedSunrise??"N/A")],
+                                children: [
+                                  const Text('Sunrise'),
+                                  Text(formattedSunrise ?? "N/A")
+                                ],
                               )
                             ],
                           ),
@@ -238,7 +191,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [Text('Sunset'), Text(formattedSunset??"N/A")],
+                                children: [
+                                  Text('Sunset'),
+                                  Text(formattedSunset ?? "N/A")
+                                ],
                               )
                             ],
                           )
@@ -247,6 +203,74 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ),
+            ),
+            Positioned(
+              top: 45,
+              right: 20,
+              left: 20,
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _cityController,
+                        decoration: InputDecoration(
+                          hintText: 'Search by city',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(onPressed: (){
+                      print(_cityController.text);
+                      weatherProvider.fetchWeatherDataByCity(_cityController.text);
+                    }, icon: Icon(search))
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              child: Consumer<LocationProvider>(
+                builder: (context, locationProvider, child) {
+                  var locationCity;
+                  if (locationProvider.currentLocationName != null) {
+                    locationCity =
+                        locationProvider.currentLocationName!.locality;
+                  } else {
+                    locationCity = "Unknown Location";
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(location, color: red),
+                          width10,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                locationCity.isEmpty
+                                    ? "Unknown Location"
+                                    : locationCity,
+                                style: titleStyle,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],
