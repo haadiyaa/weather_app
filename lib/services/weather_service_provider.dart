@@ -23,7 +23,7 @@ class WeatherServiceProvider extends ChangeNotifier {
 
     try {
       final apiUrl =
-          "${APIEndPoints().cityUrl}${city}&appid=${APIEndPoints().apiKey}${APIEndPoints().units}";
+          "${APIEndPoints().cityUrl}$city&appid=${APIEndPoints().apiKey}${APIEndPoints().units}";
       final response = await http.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
@@ -32,7 +32,7 @@ class WeatherServiceProvider extends ChangeNotifier {
         print('data fetched');
 
         _weather = WeatherModel.fromJson(data);
-        print('WEATHER : ${_weather!.name}');
+        print('WEATHER : ${_weather!.main!.temp}');
         print('jhgggggggggggggggggg');
         notifyListeners();
       } else {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather/services/location_service.dart';
+import 'package:weather/common/functions/location_service.dart';
 
 class LocationProvider with ChangeNotifier {
   Position? _currentPosition;

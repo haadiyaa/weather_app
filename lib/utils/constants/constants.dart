@@ -52,6 +52,7 @@ Color red=Colors.red;
 //==========================ICONS==========================
 IconData location=Icons.location_pin;
 IconData search=Icons.search;
+IconData error=Icons.error;
 
 //=====================PADDING==============================
 const EdgeInsetsGeometry homePadding= EdgeInsets.only(top: 40,left: 20,right: 20,bottom: 20);
