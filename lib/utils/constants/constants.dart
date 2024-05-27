@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
+
 //========================BG-IMAGES===============
-List<String> background=[
-  "assets/bg/cloudy.jpg",
-  "assets/bg/rainy.jpg",
-  "assets/bg/sunny.jpg",
-  "assets/bg/thunder.jpg",
-];
 
   Map<String,dynamic> backgrounds={
   "Clouds":"assets/bg/cloudy.jpg",
@@ -26,22 +21,10 @@ Map<String,dynamic> weatherConditions={
   'Mist':"assets/weathericon/wind.png",
 };
 
-List<String> icons=[
-  "assets/weathericon/sun.png",
-  "assets/weathericon/thunder-rain.png",
-  "assets/weathericon/cloud.png",
-  "assets/weathericon/sun-rain.png",
-  "assets/weathericon/cloud.png",
-  "assets/weathericon/wind.png",
-  "assets/weathericon/snow.png",
-];
 String loading="assets/lottie/Animation - 1716222921776.json";
-
 String hightemp='assets/smallicon/high-temp-removebg-preview.png';
-
 String lowtemp='assets/smallicon/low-temp-removebg-preview.png';
-
-String sunrise=icons[0];
+String sunrise="assets/weathericon/sun.png";
 String sunset="assets/smallicon/moon.png";
  
 //=========================COLORS===========================

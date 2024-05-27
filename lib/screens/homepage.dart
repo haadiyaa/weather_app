@@ -9,6 +9,7 @@ import 'package:weather/common/widgets/sunrisendset.dart';
 import 'package:weather/common/widgets/tempdetails.dart';
 import 'package:weather/services/location_provider.dart';
 import 'package:weather/common/functions/timeconvert.dart';
+import 'package:weather/services/network_provider.dart';
 import 'package:weather/services/weather_service_provider.dart';
 import 'package:weather/utils/constants/constants.dart';
 import 'package:weather/utils/styles/textstyle.dart';
@@ -24,6 +25,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<NetworkCheckProvider>(context, listen: false)
+        .getConnectivity(context);
+
     final locationProvider =
         Provider.of<LocationProvider>(context, listen: false);
     locationProvider.determinePosition().then((_) {
@@ -55,8 +59,8 @@ class _HomePageState extends State<HomePage> {
     int sunsetTimestamp = weatherProvider.weather?.sys?.sunset ?? 0;
 
     int timezoneOffest = weatherProvider.weather?.timezone ?? 0;
-    String formattedSunrise= timeConvert(sunriseTimestamp, timezoneOffest);
-    String formattedSunset= timeConvert(sunsetTimestamp, timezoneOffest);
+    String formattedSunrise = timeConvert(sunriseTimestamp, timezoneOffest);
+    String formattedSunset = timeConvert(sunsetTimestamp, timezoneOffest);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -125,15 +129,18 @@ class _HomePageState extends State<HomePage> {
                                       style: typeStyle),
                                 ],
                               ),
-                              height20,
                               TempDetails(weatherProvider: weatherProvider),
-                              SunrisendSet(formattedSunrise: formattedSunrise, formattedSunset: formattedSunset),
+                              SunrisendSet(
+                                  formattedSunrise: formattedSunrise,
+                                  formattedSunset: formattedSunset),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SearchField(cityController: _cityController, weatherProvider: weatherProvider),
+                    SearchField(
+                        cityController: _cityController,
+                        weatherProvider: weatherProvider),
                     SizedBox(
                       height: 50,
                       child: Consumer<LocationProvider>(

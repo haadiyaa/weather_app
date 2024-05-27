@@ -33,7 +33,6 @@ class WeatherServiceProvider extends ChangeNotifier {
 
         _weather = WeatherModel.fromJson(data);
         print('WEATHER : ${_weather!.main!.temp}');
-        print('jhgggggggggggggggggg');
         notifyListeners();
       } else {
         _error = "Failed to load data";

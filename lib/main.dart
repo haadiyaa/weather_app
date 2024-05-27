@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/services/location_provider.dart';
+import 'package:weather/services/network_provider.dart';
 import 'package:weather/services/weather_service_provider.dart';
 import 'package:weather/utils/constants/constants.dart';
 import 'package:weather/screens/homepage.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LocationProvider()),
         ChangeNotifierProvider(create: (context) => WeatherServiceProvider()),
+        ChangeNotifierProvider(create: (context) => NetworkCheckProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

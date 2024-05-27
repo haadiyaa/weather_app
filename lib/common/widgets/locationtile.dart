@@ -14,6 +14,7 @@ class LocationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(location, color: red),
         width10,
@@ -22,6 +23,7 @@ class LocationTile extends StatelessWidget {
           crossAxisAlignment:
               CrossAxisAlignment.start,
           children: [
+            Text('Your Location',style: subtitleStyle,),
             Text(
               locationCity.isEmpty
                   ? "Unknown Location"

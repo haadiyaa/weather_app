@@ -26,7 +26,6 @@ class SearchField extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
-                
                 cursorColor: white,
                 controller: _cityController,
                 decoration: InputDecoration(
