@@ -42,4 +42,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/lib/secrets
+#api secrets
+api.dart
